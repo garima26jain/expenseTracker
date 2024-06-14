@@ -6,15 +6,11 @@
         "use": "@vercel/node"
       }
     ],
-    "routes": [
-      {
-        "src": "/graphql",
-        "dest": "/backend/index.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/frontend/dist/$1"
-      }
-    ]
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"backend/index.js"
+        }
+      ]
   }
   
