@@ -1,6 +1,7 @@
 import express from "express";
 import http from "http";
 import cors from "cors";
+import path from "path";
 import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
@@ -18,6 +19,8 @@ import { configurePassport } from "./passport/passport.config.js";
 
 dotenv.config();
 configurePassport();
+
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -60,7 +63,7 @@ await server.start();
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 app.use(
-  "/",
+  "/graphql",
   cors({
     origin: "http://localhost:3000",
     credentials: true,
@@ -73,8 +76,15 @@ app.use(
   })
 );
 
+// npm run build will build your frontend app, and it will the optimized version of your app
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+});
+
 // Modified server startup
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectDB();
 
-console.log(`🚀 Server ready at http://localhost:4000/`);
+console.log(`🚀 Server ready at http://localhost:4000/graphql`);
