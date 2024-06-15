@@ -14,7 +14,6 @@ import mergedResolvers from "./resolvers/index.js";
 import mergedTypeDefs from "./typeDefs/index.js";
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
-import { createServerlessHandler } from "@vercel/node";
 
 dotenv.config();
 configurePassport();
@@ -82,5 +81,3 @@ await connectDB().catch((err) => {
 httpServer.listen({ port: process.env.PORT || 4000 }, () => {
   console.log(`🚀 Server ready at http://localhost:4000/graphql`);
 });
-
-export default createServerlessHandler(app);
