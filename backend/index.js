@@ -16,6 +16,7 @@ import mergedTypeDefs from "./typeDefs/index.js";
 
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
+import { createServerlessHandler } from "@vercel/node";
 
 dotenv.config();
 configurePassport();
@@ -65,7 +66,10 @@ await server.start();
 app.use(
   "/graphql",
   cors({
-    origin: process.env.NODE_ENV === "development"?"http://localhost:3000":"expense-tracker-i2fuwaet6-garima-jains-projects-c6e63b85.vercel.app",
+    origin:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "expense-tracker-i2fuwaet6-garima-jains-projects-c6e63b85.vercel.app",
     credentials: true,
   }),
   express.json(),
@@ -81,7 +85,6 @@ app.use(express.static(path.join(__dirname, "frontend/dist")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
-
 });
 
 // Modified server startup
@@ -89,3 +92,5 @@ await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectDB();
 
 console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+
+export default createServerlessHandler(app);
