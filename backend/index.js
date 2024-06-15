@@ -59,10 +59,7 @@ await server.start();
 app.use(
   "/graphql",
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "https://expense-tracker-fe-opal-sigma.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
   }),
   express.json(),
