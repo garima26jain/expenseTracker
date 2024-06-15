@@ -65,7 +65,7 @@ await server.start();
 app.use(
   "/graphql",
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.NODE_ENV === "development"?"http://localhost:3000":"expense-tracker-i2fuwaet6-garima-jains-projects-c6e63b85.vercel.app",
     credentials: true,
   }),
   express.json(),
