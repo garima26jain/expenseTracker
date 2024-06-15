@@ -10,7 +10,12 @@
     },
     {
       "src": "backend/index.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "memory": 512,
+        "timeout": 30
+      }
     }
   ],
   "routes": [
