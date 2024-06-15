@@ -69,7 +69,7 @@ app.use(
     origin:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
-        : "expense-tracker-i2fuwaet6-garima-jains-projects-c6e63b85.vercel.app",
+        : "https://expense-tracker-fe-opal-sigma.vercel.app/",
     credentials: true,
   }),
   express.json(),
